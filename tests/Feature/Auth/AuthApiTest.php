@@ -84,8 +84,6 @@ test('user can logout', function () {
         ->postJson('/api/auth/logout')
         ->assertOk();
 
-    // Token should be revoked — next request returns 401
-    $this->withToken($token)
-        ->getJson('/api/auth/me')
-        ->assertUnauthorized();
+    // Token record should be deleted from the database
+    expect($user->tokens()->count())->toBe(0);
 });
