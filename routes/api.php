@@ -2,9 +2,13 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BrandController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\OfferController;
+use App\Http\Controllers\PriceAlertController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\WishlistController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -65,7 +69,29 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // ── Client routes ─────────────────────────────────────────────────────
     Route::middleware('role:client')->prefix('client')->group(function () {
-        // Wishlist, Cart, Price Alerts, Favorites — Sprint 4
+        // Wishlists
+        Route::get('wishlists',                                      [WishlistController::class, 'index']);
+        Route::post('wishlists',                                     [WishlistController::class, 'store']);
+        Route::delete('wishlists/{wishlist}',                        [WishlistController::class, 'destroy']);
+        Route::post('wishlists/{wishlist}/items',                    [WishlistController::class, 'addItem']);
+        Route::delete('wishlists/{wishlist}/items/{item}',           [WishlistController::class, 'removeItem']);
+
+        // Cart
+        Route::get('cart',                  [CartController::class, 'show']);
+        Route::post('cart/items',           [CartController::class, 'addItem']);
+        Route::put('cart/items/{item}',     [CartController::class, 'updateItem']);
+        Route::delete('cart/items/{item}',  [CartController::class, 'removeItem']);
+        Route::delete('cart',               [CartController::class, 'clear']);
+
+        // Price alerts
+        Route::get('alerts',           [PriceAlertController::class, 'index']);
+        Route::post('alerts',          [PriceAlertController::class, 'store']);
+        Route::delete('alerts/{priceAlert}', [PriceAlertController::class, 'destroy']);
+
+        // Favorites
+        Route::get('favorites',                   [FavoriteController::class, 'index']);
+        Route::post('favorites',                  [FavoriteController::class, 'store']);
+        Route::delete('favorites/{productId}',    [FavoriteController::class, 'destroy']);
     });
 
     // ── Merchant routes ───────────────────────────────────────────────────
