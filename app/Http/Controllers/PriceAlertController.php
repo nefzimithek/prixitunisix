@@ -26,19 +26,19 @@ class PriceAlertController extends Controller
     public function store(Request $request): JsonResponse
     {
         $data = $request->validate([
-            'product_id'   => ['required', 'exists:products,id'],
+            'product_id' => ['required', 'exists:products,id'],
             'target_price' => ['required', 'numeric', 'min:0'],
         ]);
 
         // One active alert per product per client
         $alert = PriceAlert::updateOrCreate(
             [
-                'client_id'  => $this->clientId($request),
+                'client_id' => $this->clientId($request),
                 'product_id' => $data['product_id'],
             ],
             [
                 'target_price' => $data['target_price'],
-                'is_active'    => true,
+                'is_active' => true,
                 'triggered_at' => null,
             ]
         );
@@ -51,6 +51,7 @@ class PriceAlertController extends Controller
         abort_if($priceAlert->client_id !== $this->clientId($request), 403);
 
         $priceAlert->delete();
+
         return response()->json(null, 204);
     }
 }

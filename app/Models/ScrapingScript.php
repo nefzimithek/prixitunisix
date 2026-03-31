@@ -19,7 +19,7 @@ class ScrapingScript extends Model
     protected function casts(): array
     {
         return [
-            'last_run'          => 'datetime',
+            'last_run' => 'datetime',
             'frequency_minutes' => 'integer',
         ];
     }

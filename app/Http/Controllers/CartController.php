@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Cart;
 use App\Models\CartItem;
+use App\Models\Offer;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -35,7 +36,7 @@ class CartController extends Controller
         ]);
 
         $cart = $this->getOrCreateCart($request);
-        $offer = \App\Models\Offer::findOrFail($data['offer_id']);
+        $offer = Offer::findOrFail($data['offer_id']);
 
         $item = CartItem::updateOrCreate(
             ['cart_id' => $cart->id, 'offer_id' => $offer->id],

@@ -65,7 +65,7 @@ test('product search filters by name', function () {
     $cat = Category::factory()->create();
 
     Product::factory()->create(['name' => 'HP Laptop',   'slug' => 'hp-laptop',   'is_validated' => true, 'category_id' => $cat->id]);
-    Product::factory()->create(['name' => 'Dell Desktop', 'slug' => 'dell-desktop','is_validated' => true, 'category_id' => $cat->id]);
+    Product::factory()->create(['name' => 'Dell Desktop', 'slug' => 'dell-desktop', 'is_validated' => true, 'category_id' => $cat->id]);
 
     $this->getJson('/api/products?q=HP')
         ->assertOk()
@@ -74,12 +74,12 @@ test('product search filters by name', function () {
 
 test('admin can create a product', function () {
     $admin = User::factory()->admin()->create();
-    $cat   = Category::factory()->create();
+    $cat = Category::factory()->create();
 
     $this->actingAs($admin)
         ->postJson('/api/admin/products', [
-            'name'        => 'Test Product',
-            'slug'        => 'test-product',
+            'name' => 'Test Product',
+            'slug' => 'test-product',
             'category_id' => $cat->id,
         ])
         ->assertCreated()

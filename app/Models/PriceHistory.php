@@ -13,7 +13,7 @@ class PriceHistory extends Model
     protected function casts(): array
     {
         return [
-            'price'       => 'float',
+            'price' => 'float',
             'recorded_at' => 'datetime',
         ];
     }

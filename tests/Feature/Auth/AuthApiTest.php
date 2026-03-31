@@ -5,10 +5,10 @@ use App\Models\User;
 
 test('user can register and receives token', function () {
     $response = $this->postJson('/api/auth/register', [
-        'name'                  => 'Ben Ahmed',
-        'prename'               => 'Mohamed',
-        'email'                 => 'test@example.com',
-        'password'              => 'Password@123',
+        'name' => 'Ben Ahmed',
+        'prename' => 'Mohamed',
+        'email' => 'test@example.com',
+        'password' => 'Password@123',
         'password_confirmation' => 'Password@123',
     ]);
 
@@ -21,7 +21,7 @@ test('user can register and receives token', function () {
 
 test('register fails with invalid data', function () {
     $response = $this->postJson('/api/auth/register', [
-        'email'    => 'not-an-email',
+        'email' => 'not-an-email',
         'password' => '123',
     ]);
 
@@ -33,10 +33,10 @@ test('register fails with duplicate email', function () {
     User::factory()->create(['email' => 'dup@example.com']);
 
     $this->postJson('/api/auth/register', [
-        'name'                  => 'A',
-        'prename'               => 'B',
-        'email'                 => 'dup@example.com',
-        'password'              => 'Password@123',
+        'name' => 'A',
+        'prename' => 'B',
+        'email' => 'dup@example.com',
+        'password' => 'Password@123',
         'password_confirmation' => 'Password@123',
     ])->assertUnprocessable();
 });
@@ -45,7 +45,7 @@ test('user can login and receives token', function () {
     User::factory()->create(['email' => 'login@example.com']);
 
     $response = $this->postJson('/api/auth/login', [
-        'email'    => 'login@example.com',
+        'email' => 'login@example.com',
         'password' => 'password',
     ]);
 
@@ -57,7 +57,7 @@ test('login fails with wrong password', function () {
     User::factory()->create(['email' => 'bad@example.com']);
 
     $this->postJson('/api/auth/login', [
-        'email'    => 'bad@example.com',
+        'email' => 'bad@example.com',
         'password' => 'wrongpassword',
     ])->assertUnprocessable();
 });
@@ -77,7 +77,7 @@ test('unauthenticated me returns 401', function () {
 });
 
 test('user can logout', function () {
-    $user  = User::factory()->create();
+    $user = User::factory()->create();
     $token = $user->createToken('auth_token')->plainTextToken;
 
     $this->withToken($token)

@@ -7,7 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Favorite extends Model
 {
     public $incrementing = false;
-    public $timestamps   = false;
+
+    public $timestamps = false;
 
     protected $primaryKey = null; // composite PK (client_id, product_id)
 

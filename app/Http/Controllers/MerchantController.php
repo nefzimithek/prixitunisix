@@ -26,9 +26,9 @@ class MerchantController extends Controller
     {
         $data = $request->validate([
             'company_name' => ['sometimes', 'string', 'max:255'],
-            'address'      => ['nullable', 'string'],
-            'phone'        => ['nullable', 'string', 'max:30'],
-            'website'      => ['nullable', 'url'],
+            'address' => ['nullable', 'string'],
+            'phone' => ['nullable', 'string', 'max:30'],
+            'website' => ['nullable', 'url'],
         ]);
 
         $merchant = $this->merchant($request);
@@ -53,13 +53,13 @@ class MerchantController extends Controller
     public function storeOffer(Request $request): JsonResponse
     {
         $data = $request->validate([
-            'product_id'          => ['nullable', 'exists:products,id'],
+            'product_id' => ['nullable', 'exists:products,id'],
             'merchant_website_id' => ['nullable', 'exists:merchant_websites,id'],
-            'raw_title'           => ['required', 'string', 'max:500'],
-            'price'               => ['required', 'numeric', 'min:0'],
-            'merchant_url'        => ['required', 'url'],
-            'image_url'           => ['nullable', 'url'],
-            'is_available'        => ['boolean'],
+            'raw_title' => ['required', 'string', 'max:500'],
+            'price' => ['required', 'numeric', 'min:0'],
+            'merchant_url' => ['required', 'url'],
+            'image_url' => ['nullable', 'url'],
+            'is_available' => ['boolean'],
         ]);
 
         $data['merchant_id'] = $this->merchant($request)->id;
@@ -75,14 +75,15 @@ class MerchantController extends Controller
         abort_if($offer->merchant_id !== $this->merchant($request)->id, 403);
 
         $data = $request->validate([
-            'raw_title'    => ['sometimes', 'string', 'max:500'],
-            'price'        => ['sometimes', 'numeric', 'min:0'],
+            'raw_title' => ['sometimes', 'string', 'max:500'],
+            'price' => ['sometimes', 'numeric', 'min:0'],
             'merchant_url' => ['sometimes', 'url'],
-            'image_url'    => ['nullable', 'url'],
+            'image_url' => ['nullable', 'url'],
             'is_available' => ['boolean'],
         ]);
 
         $offer->update($data);
+
         return response()->json($offer->fresh());
     }
 
@@ -92,6 +93,7 @@ class MerchantController extends Controller
         abort_if($offer->merchant_id !== $this->merchant($request)->id, 403);
 
         $offer->delete();
+
         return response()->json(null, 204);
     }
 }

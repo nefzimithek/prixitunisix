@@ -30,6 +30,7 @@ class AdminController extends Controller
         ]);
 
         $user->update(['role' => $data['role']]);
+
         return response()->json($user->fresh());
     }
 
@@ -75,7 +76,7 @@ class AdminController extends Controller
         $employee = $request->user()->employee;
 
         $productMatch->update([
-            'status'      => $data['status'],
+            'status' => $data['status'],
             'reviewed_by' => $employee?->id,
             'reviewed_at' => now(),
         ]);
@@ -92,7 +93,7 @@ class AdminController extends Controller
     public function clickAnalytics(Request $request): JsonResponse
     {
         $from = $request->date('from', 'Y-m-d') ?? now()->subDays(30);
-        $to   = $request->date('to', 'Y-m-d') ?? now();
+        $to = $request->date('to', 'Y-m-d') ?? now();
 
         $clicks = RedirectClick::select(
             'offer_id',

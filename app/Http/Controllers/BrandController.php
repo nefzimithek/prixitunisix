@@ -21,8 +21,8 @@ class BrandController extends Controller
     public function store(Request $request): JsonResponse
     {
         $data = $request->validate([
-            'name'     => ['required', 'string', 'max:255'],
-            'slug'     => ['required', 'string', 'unique:brands,slug'],
+            'name' => ['required', 'string', 'max:255'],
+            'slug' => ['required', 'string', 'unique:brands,slug'],
             'logo_url' => ['nullable', 'url'],
         ]);
 
@@ -32,18 +32,20 @@ class BrandController extends Controller
     public function update(Request $request, Brand $brand): JsonResponse
     {
         $data = $request->validate([
-            'name'     => ['sometimes', 'string', 'max:255'],
-            'slug'     => ['sometimes', 'string', 'unique:brands,slug,'.$brand->id],
+            'name' => ['sometimes', 'string', 'max:255'],
+            'slug' => ['sometimes', 'string', 'unique:brands,slug,'.$brand->id],
             'logo_url' => ['nullable', 'url'],
         ]);
 
         $brand->update($data);
+
         return response()->json($brand);
     }
 
     public function destroy(Brand $brand): JsonResponse
     {
         $brand->delete();
+
         return response()->json(null, 204);
     }
 }

@@ -30,7 +30,7 @@ class FavoriteController extends Controller
         ]);
 
         Favorite::firstOrCreate([
-            'client_id'  => $this->clientId($request),
+            'client_id' => $this->clientId($request),
             'product_id' => $data['product_id'],
         ]);
 

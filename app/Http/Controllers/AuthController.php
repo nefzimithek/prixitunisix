@@ -15,18 +15,18 @@ class AuthController extends Controller
     public function register(Request $request): JsonResponse
     {
         $data = $request->validate([
-            'name'     => ['required', 'string', 'max:255'],
-            'prename'  => ['required', 'string', 'max:255'],
-            'email'    => ['required', 'email', 'unique:users,email'],
+            'name' => ['required', 'string', 'max:255'],
+            'prename' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'email', 'unique:users,email'],
             'password' => ['required', 'confirmed', Password::min(8)],
         ]);
 
         $user = User::create([
-            'name'     => $data['name'],
-            'prename'  => $data['prename'],
-            'email'    => $data['email'],
+            'name' => $data['name'],
+            'prename' => $data['prename'],
+            'email' => $data['email'],
             'password' => $data['password'],
-            'role'     => 'client',
+            'role' => 'client',
         ]);
 
         // Auto-create client profile
@@ -35,7 +35,7 @@ class AuthController extends Controller
         $token = $user->createToken('auth_token')->plainTextToken;
 
         return response()->json([
-            'user'  => $this->userResource($user),
+            'user' => $this->userResource($user),
             'token' => $token,
         ], 201);
     }
@@ -43,7 +43,7 @@ class AuthController extends Controller
     public function login(Request $request): JsonResponse
     {
         $data = $request->validate([
-            'email'    => ['required', 'email'],
+            'email' => ['required', 'email'],
             'password' => ['required', 'string'],
         ]);
 
@@ -60,7 +60,7 @@ class AuthController extends Controller
         $token = $user->createToken('auth_token')->plainTextToken;
 
         return response()->json([
-            'user'  => $this->userResource($user),
+            'user' => $this->userResource($user),
             'token' => $token,
         ]);
     }
@@ -80,11 +80,11 @@ class AuthController extends Controller
     private function userResource(User $user): array
     {
         return [
-            'id'      => $user->id,
-            'name'    => $user->name,
+            'id' => $user->id,
+            'name' => $user->name,
             'prename' => $user->prename,
-            'email'   => $user->email,
-            'role'    => $user->role,
+            'email' => $user->email,
+            'role' => $user->role,
         ];
     }
 }

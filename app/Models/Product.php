@@ -23,7 +23,7 @@ class Product extends Model
     protected function casts(): array
     {
         return [
-            'is_validated'   => 'boolean',
+            'is_validated' => 'boolean',
             'specifications' => 'array', // stored as JSONB in PostgreSQL
         ];
     }

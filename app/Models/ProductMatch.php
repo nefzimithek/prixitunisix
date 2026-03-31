@@ -19,7 +19,7 @@ class ProductMatch extends Model
     {
         return [
             'confidence_score' => 'float',
-            'reviewed_at'      => 'datetime',
+            'reviewed_at' => 'datetime',
         ];
     }
 

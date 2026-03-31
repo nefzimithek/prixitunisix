@@ -18,7 +18,7 @@ class PriceAlert extends Model
     {
         return [
             'target_price' => 'float',
-            'is_active'    => 'boolean',
+            'is_active' => 'boolean',
             'triggered_at' => 'datetime',
         ];
     }

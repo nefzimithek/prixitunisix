@@ -16,8 +16,8 @@ class CategoryFactory extends Factory
         $name = fake()->unique()->words(2, true);
 
         return [
-            'name'      => ucfirst($name),
-            'slug'      => Str::slug($name),
+            'name' => ucfirst($name),
+            'slug' => Str::slug($name),
             'parent_id' => null,
         ];
     }

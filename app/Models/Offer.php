@@ -21,9 +21,9 @@ class Offer extends Model
     protected function casts(): array
     {
         return [
-            'price'        => 'float',
+            'price' => 'float',
             'is_available' => 'boolean',
-            'scraped_at'   => 'datetime',
+            'scraped_at' => 'datetime',
         ];
     }
 

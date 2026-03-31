@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Offer;
-use App\Models\PriceHistory;
 use App\Models\RedirectClick;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -28,8 +27,8 @@ class OfferController extends Controller
     public function redirect(Request $request, Offer $offer): JsonResponse
     {
         RedirectClick::create([
-            'offer_id'   => $offer->id,
-            'user_id'    => optional($request->user())->id,
+            'offer_id' => $offer->id,
+            'user_id' => optional($request->user())->id,
             'ip_address' => $request->ip(),
         ]);
 

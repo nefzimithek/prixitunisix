@@ -31,7 +31,7 @@ class WishlistController extends Controller
 
         $wishlist = Wishlist::create([
             'client_id' => $this->clientId($request),
-            'name'      => $data['name'],
+            'name' => $data['name'],
         ]);
 
         return response()->json($wishlist, 201);
@@ -41,6 +41,7 @@ class WishlistController extends Controller
     {
         abort_if($wishlist->client_id !== $this->clientId($request), 403);
         $wishlist->delete();
+
         return response()->json(null, 204);
     }
 
@@ -54,7 +55,7 @@ class WishlistController extends Controller
 
         $item = WishlistItem::firstOrCreate([
             'wishlist_id' => $wishlist->id,
-            'product_id'  => $data['product_id'],
+            'product_id' => $data['product_id'],
         ]);
 
         return response()->json($item->load('product'), 201);
@@ -66,6 +67,7 @@ class WishlistController extends Controller
         abort_if($item->wishlist_id !== $wishlist->id, 404);
 
         $item->delete();
+
         return response()->json(null, 204);
     }
 }

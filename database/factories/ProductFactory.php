@@ -17,12 +17,12 @@ class ProductFactory extends Factory
         $name = fake()->unique()->words(3, true);
 
         return [
-            'name'         => ucfirst($name),
-            'slug'         => Str::slug($name),
-            'description'  => fake()->sentence(),
+            'name' => ucfirst($name),
+            'slug' => Str::slug($name),
+            'description' => fake()->sentence(),
             'is_validated' => true,
-            'category_id'  => Category::factory(),
-            'brand_id'     => null,
+            'category_id' => Category::factory(),
+            'brand_id' => null,
             'specifications' => null,
         ];
     }

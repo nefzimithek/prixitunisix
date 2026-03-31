@@ -25,10 +25,10 @@ class CategoryController extends Controller
     public function store(Request $request): JsonResponse
     {
         $data = $request->validate([
-            'name'        => ['required', 'string', 'max:255'],
-            'slug'        => ['required', 'string', 'unique:categories,slug'],
+            'name' => ['required', 'string', 'max:255'],
+            'slug' => ['required', 'string', 'unique:categories,slug'],
             'description' => ['nullable', 'string'],
-            'parent_id'   => ['nullable', 'exists:categories,id'],
+            'parent_id' => ['nullable', 'exists:categories,id'],
         ]);
 
         $category = Category::create($data);
@@ -39,10 +39,10 @@ class CategoryController extends Controller
     public function update(Request $request, Category $category): JsonResponse
     {
         $data = $request->validate([
-            'name'        => ['sometimes', 'string', 'max:255'],
-            'slug'        => ['sometimes', 'string', 'unique:categories,slug,'.$category->id],
+            'name' => ['sometimes', 'string', 'max:255'],
+            'slug' => ['sometimes', 'string', 'unique:categories,slug,'.$category->id],
             'description' => ['nullable', 'string'],
-            'parent_id'   => ['nullable', 'exists:categories,id'],
+            'parent_id' => ['nullable', 'exists:categories,id'],
         ]);
 
         $category->update($data);
@@ -53,6 +53,7 @@ class CategoryController extends Controller
     public function destroy(Category $category): JsonResponse
     {
         $category->delete();
+
         return response()->json(null, 204);
     }
 }
